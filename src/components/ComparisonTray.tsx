@@ -121,11 +121,14 @@ export default function ComparisonTray({
             </tr>
             <tr>
               <td className="py-3 px-4 text-slate-400">Effective Tax Rate</td>
-              {activeCountries.map((c) => (
-                <td key={c.code} className="py-3 px-4 text-center font-semibold text-rose-400">
-                  {c.taxPercentage}%
-                </td>
-              ))}
+              {activeCountries.map((c) => {
+                const bd = calculateBreakdown(c, c.experienceSalaries[experienceLevel]);
+                return (
+                  <td key={c.code} className="py-3 px-4 text-center font-semibold text-rose-400">
+                    {Math.round(bd.effectiveTaxRate)}%
+                  </td>
+                );
+              })}
             </tr>
             <tr>
               <td className="py-3 px-4 text-slate-400">Annual Rent (City Center)</td>

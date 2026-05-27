@@ -17,7 +17,7 @@ export default function StorytellerSection() {
       content: (
         <div className="space-y-4 text-slate-300">
           <p>
-            When recruiters quote high salaries in Europe, the first thing they don&apos;t mention is the progressive tax system. In Germany, a single engineer earning <span className="text-white font-bold">€85,000</span> takes home roughly <span className="text-rose-400 font-bold">€49,300</span> after mandatory pension, health insurance, and income tax.
+            When recruiters quote high salaries in Europe, the first thing they don&apos;t mention is the progressive tax system. In Germany, a single engineer earning <span className="text-slate-100 font-bold">€85,000</span> takes home roughly <span className="text-rose-400 font-bold">€49,300</span> after mandatory pension, health insurance, and income tax.
           </p>
           <div className="grid grid-cols-2 gap-4 py-2">
             <div className="bg-slate-950/60 p-3 rounded-lg border border-slate-900 text-center">
@@ -46,7 +46,7 @@ export default function StorytellerSection() {
       content: (
         <div className="space-y-4 text-slate-300">
           <p>
-            The tech centers of San Francisco, London, and Toronto offer premium salaries, but they also boast some of the highest real estate costs in the world. An average 1-bed in San Francisco center sits at <span className="text-white font-bold">$3,000/month</span>, eating up nearly <span className="text-amber-400 font-bold">$36,000/year</span> of post-tax cash.
+            The tech centers of San Francisco, London, and Toronto offer premium salaries, but they also boast some of the highest real estate costs in the world. An average 1-bed in San Francisco center sits at <span className="text-slate-100 font-bold">$3,000/month</span>, eating up nearly <span className="text-amber-400 font-bold">$36,000/year</span> of post-tax cash.
           </p>
           <div className="grid grid-cols-3 gap-2 py-2">
             <div className="bg-slate-950/60 p-2 rounded-lg border border-slate-900 text-center">

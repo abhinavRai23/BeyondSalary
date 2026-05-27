@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-[#030303] py-12 px-4 md:px-8 relative overflow-hidden">
+    <footer className="border-t border-slate-800/40 bg-slate-950 py-12 px-4 md:px-8 relative overflow-hidden">
       {/* Background glow shadow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-gradient-to-t from-indigo-500/5 to-transparent pointer-events-none -z-10" />
 

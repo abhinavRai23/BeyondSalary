@@ -54,7 +54,7 @@ export default function CompareDashboard() {
     } else if (type === "worklife") {
       setSelectedCodes(["DE", "NL", "SE"]);
     } else if (type === "europe") {
-      setSelectedCodes(["DE", "NL", "SE", "GB", "CH"]);
+      setSelectedCodes(["DE", "NL", "SE", "GB", "CH", "IE", "PL", "FR"]);
     }
   };
 
@@ -131,7 +131,7 @@ export default function CompareDashboard() {
         </div>
 
         {/* Countries Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-4">
           {filteredCountries.map((c) => {
             const isSelected = selectedCodes.includes(c.code);
             const breakdown = calculateBreakdown(c, c.experienceSalaries[expLevel]);

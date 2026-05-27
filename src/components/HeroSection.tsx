@@ -100,7 +100,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-lg sm:text-xl text-slate-400 font-light leading-relaxed max-w-2xl mx-auto"
         >
-          A <span className="text-white font-semibold uppercase tracking-wider">{expLevel}</span> software engineer earning{" "}
+          A <span className="text-slate-100 font-semibold uppercase tracking-wider">{expLevel}</span> software engineer earning{" "}
           <span className="text-indigo-400 font-semibold">{formatLocal(countryA.experienceSalaries[expLevel], countryA)} in {countryA.name}</span>{" "}
           vs{" "}
           <span className="text-emerald-400 font-semibold">{formatLocal(countryB.experienceSalaries[expLevel], countryB)} in {countryB.name}</span>
@@ -191,7 +191,7 @@ export default function HeroSection() {
             <div className="border-t border-slate-800/60 pt-4 space-y-3.5">
               <div className="flex justify-between text-xs">
                 <span className="text-slate-400">Effective Tax Rate</span>
-                <span className="text-rose-400 font-semibold">{countryA.taxPercentage}%</span>
+                <span className="text-rose-400 font-semibold">{Math.round(breakdownA.effectiveTaxRate)}%</span>
               </div>
               <div className="flex justify-between text-xs">
                 <span className="text-slate-400">Est. Tax Paid</span>
@@ -262,7 +262,7 @@ export default function HeroSection() {
             <div className="border-t border-slate-800/60 pt-4 space-y-3.5">
               <div className="flex justify-between text-xs">
                 <span className="text-slate-400">Effective Tax Rate</span>
-                <span className="text-rose-400 font-semibold">{countryB.taxPercentage}%</span>
+                <span className="text-rose-400 font-semibold">{Math.round(breakdownB.effectiveTaxRate)}%</span>
               </div>
               <div className="flex justify-between text-xs">
                 <span className="text-slate-400">Est. Tax Paid</span>
@@ -292,7 +292,7 @@ export default function HeroSection() {
               <span className="text-xs text-slate-500 font-mono">({formatLocal(salaryA, countryA)})</span>
             </div>
             <div className="flex gap-4 text-xs font-semibold">
-              <span className="text-rose-400">Tax: {countryA.taxPercentage}%</span>
+              <span className="text-rose-400">Tax: {Math.round(breakdownA.effectiveTaxRate)}%</span>
               <span className="text-amber-400">Rent: {Math.round((breakdownA.rentLocal / salaryA) * 100)}%</span>
               <span className="text-sky-400">Expenses: {Math.round((breakdownA.expensesLocal / salaryA) * 100)}%</span>
               <span className={`font-bold ${breakdownA.savingsLocal > 0 ? "text-emerald-400" : "text-rose-500"}`}>
@@ -305,12 +305,12 @@ export default function HeroSection() {
           <div className="h-6 w-full rounded-full bg-slate-900 overflow-hidden flex font-mono text-[9px] text-white font-bold">
             {/* Tax Portion */}
             <motion.div
-              animate={{ width: `${countryA.taxPercentage}%` }}
+              animate={{ width: `${breakdownA.effectiveTaxRate}%` }}
               transition={{ type: "spring", stiffness: 80, damping: 15 }}
               className="bg-rose-500 flex items-center justify-center min-w-[5px]"
               title={`Tax: ${formatLocal(breakdownA.taxLocal, countryA)}`}
             >
-              {countryA.taxPercentage > 10 && "TAX"}
+              {breakdownA.effectiveTaxRate > 10 && "TAX"}
             </motion.div>
             {/* Rent Portion */}
             <motion.div
@@ -346,9 +346,12 @@ export default function HeroSection() {
           </div>
 
           <div className="flex justify-between items-center mt-3 text-xs">
-            <span className="text-slate-500">Leftover Savings (Annual Local)</span>
+            <span className="text-slate-500">Leftover Savings ({displayCurrency})</span>
             <span className={`font-black font-mono ${breakdownA.savingsLocal > 0 ? "text-emerald-400" : "text-rose-500"}`}>
-              {formatLocal(breakdownA.savingsLocal, countryA)}
+              {formatDisplay(savingsAInDisplay)}
+              <span className="text-[10px] text-slate-500 font-normal ml-1.5 font-sans">
+                ({formatLocal(breakdownA.savingsLocal, countryA)} local)
+              </span>
             </span>
           </div>
         </div>
@@ -362,7 +365,7 @@ export default function HeroSection() {
               <span className="text-xs text-slate-500 font-mono">({formatLocal(salaryB, countryB)})</span>
             </div>
             <div className="flex gap-4 text-xs font-semibold">
-              <span className="text-rose-400">Tax: {countryB.taxPercentage}%</span>
+              <span className="text-rose-400">Tax: {Math.round(breakdownB.effectiveTaxRate)}%</span>
               <span className="text-amber-400">Rent: {Math.round((breakdownB.rentLocal / salaryB) * 100)}%</span>
               <span className="text-sky-400">Expenses: {Math.round((breakdownB.expensesLocal / salaryB) * 100)}%</span>
               <span className={`font-bold ${breakdownB.savingsLocal > 0 ? "text-emerald-400" : "text-rose-500"}`}>
@@ -375,12 +378,12 @@ export default function HeroSection() {
           <div className="h-6 w-full rounded-full bg-slate-900 overflow-hidden flex font-mono text-[9px] text-white font-bold">
             {/* Tax Portion */}
             <motion.div
-              animate={{ width: `${countryB.taxPercentage}%` }}
+              animate={{ width: `${breakdownB.effectiveTaxRate}%` }}
               transition={{ type: "spring", stiffness: 80, damping: 15 }}
               className="bg-rose-500 flex items-center justify-center min-w-[5px]"
               title={`Tax: ${formatLocal(breakdownB.taxLocal, countryB)}`}
             >
-              {countryB.taxPercentage > 10 && "TAX"}
+              {breakdownB.effectiveTaxRate > 10 && "TAX"}
             </motion.div>
             {/* Rent Portion */}
             <motion.div
@@ -416,9 +419,12 @@ export default function HeroSection() {
           </div>
 
           <div className="flex justify-between items-center mt-3 text-xs">
-            <span className="text-slate-500">Leftover Savings (Annual Local)</span>
+            <span className="text-slate-500">Leftover Savings ({displayCurrency})</span>
             <span className={`font-black font-mono ${breakdownB.savingsLocal > 0 ? "text-emerald-400" : "text-rose-500"}`}>
-              {formatLocal(breakdownB.savingsLocal, countryB)}
+              {formatDisplay(savingsBInDisplay)}
+              <span className="text-[10px] text-slate-500 font-normal ml-1.5 font-sans">
+                ({formatLocal(breakdownB.savingsLocal, countryB)} local)
+              </span>
             </span>
           </div>
         </div>
@@ -601,44 +607,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Comparison Callout Cards (Stripe/Linear style) */}
-      <motion.div
-        layout
-        className="glass-panel p-6 rounded-2xl border-indigo-500/20 bg-gradient-to-br from-indigo-950/20 via-slate-900/40 to-emerald-950/10 text-center relative z-10 flex flex-col md:flex-row md:text-left justify-between items-center gap-6"
-      >
-        <div>
-          <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-            <span className="text-2xl">{winner.flag}</span>
-            <h4 className="text-lg font-bold text-slate-100">Savings Reality Check Verdict</h4>
-          </div>
-          <p className="text-sm text-slate-400 max-w-xl">
-            Software engineers in <span className="text-white font-semibold">{winner.name}</span> save{" "}
-            <span className="text-emerald-400 font-bold font-mono">{formatDisplay(savingsDifference)}</span> more per year than those in{" "}
-            <span className="text-white font-semibold">{loser.name}</span>. That is an increase of{" "}
-            <span className="text-emerald-400 font-bold font-mono">{percentBetter.toFixed(0)}%</span> in liquid savings potential.
-          </p>
-        </div>
 
-        <div className="flex gap-4">
-          <div className="glass-panel px-5 py-4 rounded-xl text-center bg-slate-950/60 border-brand-border">
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">
-              {countryA.flag} {countryA.name} Savings
-            </div>
-            <div className={`text-base font-black font-mono ${savingsAInDisplay > 0 ? "text-emerald-400 text-glow-emerald" : "text-rose-500"}`}>
-              {formatDisplay(savingsAInDisplay)}
-            </div>
-          </div>
-
-          <div className="glass-panel px-5 py-4 rounded-xl text-center bg-slate-950/60 border-brand-border">
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">
-              {countryB.flag} {countryB.name} Savings
-            </div>
-            <div className={`text-base font-black font-mono ${savingsBInDisplay > 0 ? "text-emerald-400 text-glow-emerald" : "text-rose-500"}`}>
-              {formatDisplay(savingsBInDisplay)}
-            </div>
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }

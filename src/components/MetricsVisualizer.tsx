@@ -203,7 +203,7 @@ export default function MetricsVisualizer({ selectedCountries, experienceLevel }
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* 2. Radar Chart - Quality of Life */}
-        <div className="glass-panel p-6 rounded-2xl border-brand-border flex flex-col">
+        <div className="glass-panel p-6 rounded-2xl border-brand-border flex flex-col min-w-0">
           <div className="mb-6">
             <h3 className="text-xl font-bold text-slate-100 mb-1">
               Quality of Life Dimensions
@@ -250,7 +250,7 @@ export default function MetricsVisualizer({ selectedCountries, experienceLevel }
         </div>
 
         {/* 3. Culture Comparison Chart */}
-        <div className="glass-panel p-6 rounded-2xl border-brand-border flex flex-col">
+        <div className="glass-panel p-6 rounded-2xl border-brand-border flex flex-col min-w-0">
           <div className="mb-6">
             <h3 className="text-xl font-bold text-slate-100 mb-1">
               Work Hours vs Paid Vacation

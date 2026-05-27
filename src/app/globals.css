@@ -1,23 +1,114 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-brand-bg: #030303;
-  --color-brand-card: rgba(15, 15, 15, 0.65);
-  --color-brand-border: rgba(255, 255, 255, 0.07);
-  --color-brand-accent-glow: rgba(99, 102, 241, 0.15);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-card: var(--brand-card);
+  --color-brand-border: var(--brand-border);
+  --color-brand-accent-glow: var(--brand-accent-glow);
   
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-glow-spin: glow-spin 12s linear infinite;
+
+  /* Overriding default slate colors to map to our dynamic CSS variables */
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
 }
 
+/* ─────────────────────────────────────────────
+   LIGHT THEME  (default / :root)
+   ───────────────────────────────────────────── */
 :root {
-  color-scheme: dark;
-  --background: #030303;
-  --foreground: #f8fafc;
+  color-scheme: light;
+  --background: #f1f5f9;
+  --foreground: #0f172a;
+
+  --brand-bg: #f1f5f9;
+  --brand-card: rgba(255, 255, 255, 0.80);
+  --brand-card-hover: rgba(255, 255, 255, 0.97);
+  --brand-border: rgba(15, 23, 42, 0.10);
+  --brand-accent-glow: rgba(99, 102, 241, 0.08);
+
+  --panel-bg: rgba(255, 255, 255, 0.75);
+  --panel-border: rgba(15, 23, 42, 0.09);
+  --panel-shadow: 0 4px 24px 0 rgba(15, 23, 42, 0.08);
+
+  --radial-glow-color: rgba(99, 102, 241, 0.06);
+  --grid-line: rgba(15, 23, 42, 0.04);
+
+  /* Light Theme: invert slate scale so dark utilities read correctly on white */
+  --slate-50:  #f8fafc;
+  --slate-100: #0f172a;   /* primary text  */
+  --slate-200: #1e293b;
+  --slate-300: #334155;
+  --slate-400: #475569;   /* muted text    */
+  --slate-500: #64748b;
+  --slate-600: #94a3b8;
+  --slate-700: #cbd5e1;
+  --slate-800: #e2e8f0;   /* subtle border */
+  --slate-900: #f1f5f9;   /* card surface  */
+  --slate-950: #ffffff;   /* page canvas   */
 }
 
+/* ─────────────────────────────────────────────
+   DARK THEME  (.dark on <html>)
+   ───────────────────────────────────────────── */
+.dark {
+  color-scheme: dark;
+  /* Navy-slate background — NOT pitch black */
+  --background: #0a0f1d;
+  --foreground: #e8edf5;
+
+  --brand-bg: #0a0f1d;
+  --brand-card: rgba(14, 21, 40, 0.70);
+  --brand-card-hover: rgba(20, 30, 56, 0.85);
+  --brand-border: rgba(255, 255, 255, 0.07);
+  --brand-accent-glow: rgba(99, 102, 241, 0.18);
+
+  --panel-bg: rgba(12, 18, 35, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.07);
+  --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.40);
+
+  --radial-glow-color: rgba(99, 102, 241, 0.14);
+  --grid-line: rgba(255, 255, 255, 0.025);
+
+  /* Dark Theme: standard Tailwind slate scale */
+  --slate-50:  #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #0a0f1d;  /* Matches navy background */
+}
+
+/* ─────────────────────────────────────────────
+   BASE STYLES
+   ───────────────────────────────────────────── */
+
+/* Fix: Set background on the html element itself to prevent the browser's
+   UA dark-mode default (#000) from bleeding through on short pages or during
+   paint before React hydrates the body. */
 html {
+  background-color: var(--background);
+  color: var(--foreground);
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -27,13 +118,15 @@ body {
   overflow-x: hidden;
 }
 
-/* Glassmorphism utility classes */
+/* ─────────────────────────────────────────────
+   GLASSMORPHISM UTILITIES
+   ───────────────────────────────────────────── */
 .glass-panel {
-  background: rgba(13, 13, 16, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
 }
 
 .glass-panel-hover {
@@ -41,9 +134,9 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(20, 20, 25, 0.8);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
+  background: var(--brand-card-hover);
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow: 0 16px 48px 0 var(--brand-accent-glow);
   transform: translateY(-2px);
 }
 
@@ -68,7 +161,9 @@ body {
   transform: translateX(100%);
 }
 
-/* Glowing text and effects */
+/* ─────────────────────────────────────────────
+   TEXT EFFECTS
+   ───────────────────────────────────────────── */
 .text-glow-indigo {
   text-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
 }
@@ -77,23 +172,27 @@ body {
   text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
 }
 
-/* Grid background */
+/* ─────────────────────────────────────────────
+   GRID BACKGROUND PATTERN
+   ───────────────────────────────────────────── */
 .grid-bg {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
 .radial-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 50%, var(--radial-glow-color) 0%, transparent 60%);
 }
 
-/* Custom range input (slider) styling */
+/* ─────────────────────────────────────────────
+   RANGE INPUT (SLIDER) STYLING
+   ───────────────────────────────────────────── */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--brand-border);
   border-radius: 9999px;
   height: 6px;
   outline: none;
@@ -116,35 +215,59 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background: #818cf8;
 }
 
-/* Scrollbar styles */
+/* ─────────────────────────────────────────────
+   SCROLLBAR STYLES
+   ───────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--brand-border);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(99, 102, 241, 0.30);
 }
 
-/* Hide default re-chart legend/tooltip styles to keep it fully customized */
+/* Hide scrollbar utility — preserves scroll functionality */
+.no-scrollbar {
+  -ms-overflow-style: none;   /* IE / Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari / Opera */
+}
+
+/* ─────────────────────────────────────────────
+   RECHARTS OVERRIDES
+   ───────────────────────────────────────────── */
 .recharts-default-tooltip {
-  background-color: rgba(13, 13, 16, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  background-color: var(--panel-bg) !important;
+  border: 1px solid var(--panel-border) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--panel-shadow) !important;
 }
 
-/* Custom Keyframe Animations */
+/* ─────────────────────────────────────────────
+   CUSTOM KEYFRAME ANIMATIONS
+   ───────────────────────────────────────────── */
 @keyframes glow-spin {
-  0% { transform: rotate(0deg); }
+  0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease both;
 }

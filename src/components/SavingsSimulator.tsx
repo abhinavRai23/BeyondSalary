@@ -40,11 +40,20 @@ export default function SavingsSimulator({ selectedCountryCodes, experienceLevel
 
   // Reset inputs when active country or experience level changes
   useEffect(() => {
-    setSalary(activeCountry.experienceSalaries[experienceLevel]);
-    setTaxRate(activeCountry.taxPercentage);
+    const baseSalary = activeCountry.experienceSalaries[experienceLevel];
+    setSalary(baseSalary);
     setRent(activeCountry.averageRentLocal);
     setExpenses(activeCountry.monthlyExpensesLocal);
+    
+    const bd = calculateBreakdown(activeCountry, baseSalary);
+    setTaxRate(Math.round(bd.effectiveTaxRate));
   }, [activeCountry, experienceLevel]);
+
+  // Keep tax rate in sync with salary slider shifts
+  useEffect(() => {
+    const bd = calculateBreakdown(activeCountry, salary);
+    setTaxRate(Math.round(bd.effectiveTaxRate));
+  }, [salary, activeCountry.code]);
 
   // Calculations
   const taxPaid = salary * (taxRate / 100);
@@ -314,7 +323,7 @@ export default function SavingsSimulator({ selectedCountryCodes, experienceLevel
                         <span>{c.name} (Average)</span>
                       </td>
                       <td className="py-3 font-mono">{fmtUSD(bd.salaryUSD)}</td>
-                      <td className="py-3">{c.taxPercentage}%</td>
+                      <td className="py-3">{Math.round(bd.effectiveTaxRate)}%</td>
                       <td className="py-3 font-mono">{fmtUSD(bd.rentUSD + bd.expensesUSD)}</td>
                       <td className="py-3 font-mono font-bold">{fmtUSD(bd.savingsUSD)}</td>
                       <td className="py-3 font-mono text-[10px]">
