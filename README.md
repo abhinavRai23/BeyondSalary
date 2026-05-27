@@ -1,5 +1,7 @@
 # BeyondSalary 🌐💼
 
+![BeyondSalary Preview](./public/preview.png)
+
 An interactive, premium data-journalism storytelling dashboard designed for software engineers to compare **compensation, cost of living, social safety nets, and overall quality of life** across the top tech destinations in the world. 
 
 BeyondSalary shifts the focus from simple gross numbers to real liquid cash retention and everyday living parameters.
